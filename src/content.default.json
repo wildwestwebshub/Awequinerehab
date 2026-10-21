@@ -4,7 +4,7 @@
     "tagline": "Recovery comes to you!",
     "phone": "(608) 343-4713",
     "email": "awequinerehab@outlook.com",
-    "facebook": "https://www.facebook.com/ashlarsperformance",
+    "facebook": "https://www.facebook.com/share/19XhtPvfQN/",
     "address": "",
     "footerText": "Walstrom Equine Therapy & Conditioning",
     "ctaLabel": "Call today"
@@ -125,7 +125,7 @@
           "id": "b2",
           "type": "button",
           "label": "Find us on Facebook",
-          "url": "https://www.facebook.com/ashlarsperformance",
+          "url": "https://www.facebook.com/share/19XhtPvfQN/",
           "style": "outline",
           "align": "center",
           "bg": "navy"
@@ -142,7 +142,7 @@
           "id": "f2",
           "type": "embed",
           "kind": "facebook",
-          "url": "https://www.facebook.com/ashlarsperformance",
+          "url": "https://www.facebook.com/share/19XhtPvfQN/",
           "height": 600,
           "bg": "none"
         }
@@ -174,7 +174,7 @@
           "id": "n2",
           "type": "button",
           "label": "Follow us on Facebook",
-          "url": "https://www.facebook.com/ashlarsperformance",
+          "url": "https://www.facebook.com/share/19XhtPvfQN/",
           "style": "solid",
           "align": "center",
           "bg": "cream"
@@ -183,7 +183,7 @@
           "id": "n3",
           "type": "embed",
           "kind": "facebook",
-          "url": "https://www.facebook.com/ashlarsperformance",
+          "url": "https://www.facebook.com/share/19XhtPvfQN/",
           "height": 700,
           "bg": "none"
         }
@@ -379,7 +379,7 @@
           "id": "a5",
           "type": "button",
           "label": "Find us on Facebook",
-          "url": "https://www.facebook.com/ashlarsperformance",
+          "url": "https://www.facebook.com/share/19XhtPvfQN/",
           "style": "outline",
           "align": "center",
           "bg": "maroon"
