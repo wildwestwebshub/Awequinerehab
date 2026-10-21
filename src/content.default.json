@@ -214,6 +214,25 @@
           "bg": "cream"
         },
         {
+          "id": "s00",
+          "type": "heading",
+          "text": "Our Products",
+          "level": 2,
+          "align": "center",
+          "bg": "cream"
+        },
+        {
+          "id": "s01",
+          "type": "list",
+          "items": [
+            "20 Min Spa Session",
+            "15 Min Red Light Session",
+            "Equi Vibe",
+            "Haul-In Treadmill Session"
+          ],
+          "bg": "cream"
+        },
+        {
           "id": "s1",
           "type": "heading",
           "text": "Conditioning Package",
