@@ -202,6 +202,7 @@ var BLOCKS = {
   gallery: { label: "Photo gallery", make: function () { return { type: "gallery", images: [] }; } },
   cards: { label: "Cards (photo + text)", make: function () { return { type: "cards", items: [{ image: "", title: "", html: "<p></p>", linkLabel: "", linkUrl: "" }] }; } },
   split: { label: "Photo beside text", make: function () { return { type: "split", image: "", imageSide: "left", title: "", html: "<p></p>", buttonLabel: "", buttonUrl: "" }; } },
+  embed: { label: "Facebook / video / map", make: function () { return { type: "embed", kind: "facebook", url: "", height: 600 }; } },
   button: { label: "Button", make: function () { return { type: "button", label: "Learn more", url: "", style: "solid", align: "left" }; } },
   list: { label: "Bullet list", make: function () { return { type: "list", items: [""] }; } },
   divider: { label: "Divider line", make: function () { return { type: "divider" }; } }
@@ -224,6 +225,7 @@ function blockEditor(b, pi, bi, total) {
     case "list": body = '<p class="status">One bullet per line.</p><textarea rows="5" data-bind="' + base + '.items" data-type="lines">' + h((b.items || []).join("\n")) + "</textarea>"; break;
     case "button": body = fText(base + ".label", "Button words") + fText(base + ".url", "Where it goes", { list: "pagelist", help: "Pick one of your pages, or paste a full address like https://… , tel:+16083434713 or mailto:you@example.com" }) + '<div class="row">' + fSel(base + ".style", "Look", [["solid", "Filled"], ["outline", "Outline"]]) + align + "</div>"; break;
     case "divider": body = '<p class="status">A thin line across the page.</p>'; break;
+    case "embed": body = fSel(base + ".kind", "What to show", [["facebook", "Facebook page feed"], ["youtube", "YouTube video"], ["file", "Video file on this site"], ["map", "Google map"]]) + fText(base + ".url", "Address / link", { help: "Facebook: the page address, like https://www.facebook.com/yourpage. YouTube: the video link. Video file: its address, like /video/my-video.mp4. Map: a street address." }) + fSel(base + ".height", "Height", [["400", "Short"], ["600", "Medium"], ["800", "Tall"]]).replace("<select", '<select data-type="int"'); break;
     case "gallery":
       body = '<div class="gal">' + (b.images || []).map(function (g, i) { return '<div><img src="' + h(g.src) + '" alt=""><button class="btn small danger" data-act="galdel" data-path="' + base + '.images" data-i="' + i + '" aria-label="Remove photo">✕</button></div>'; }).join("") + '</div><button class="btn small" data-act="galadd" data-path="' + base + '.images">+ Add photos</button><p class="status">Visitors can tap a photo to see it larger.</p>'; break;
     case "split": body = fImg(base + ".image", "Photo") + fSel(base + ".imageSide", "Photo position", [["left", "Photo on the left"], ["right", "Photo on the right"]]) + fText(base + ".title", "Heading") + fRte(base + ".html", "Text") + '<div class="row">' + fText(base + ".buttonLabel", "Button words (optional)") + fText(base + ".buttonUrl", "Button goes to", { list: "pagelist" }) + "</div>"; break;
@@ -233,7 +235,7 @@ function blockEditor(b, pi, bi, total) {
         fImg(cb + ".image", "Photo") + fText(cb + ".title", "Title") + fRte(cb + ".html", "Text") + '<div class="row">' + fText(cb + ".linkLabel", "Button words (optional)") + fText(cb + ".linkUrl", "Button goes to", { list: "pagelist" }) + "</div></div>";
     }).join("") + '<button class="btn small" data-act="cardadd" data-path="' + base + '.items">+ Add a card</button>'; break;
   }
-  return '<div class="block"><div class="bhead"><b>' + BLOCKS[b.type].label + '</b><button class="btn small" data-act="moveblock" data-i="' + bi + '" data-d="-1"' + (bi === 0 ? " disabled" : "") + ' aria-label="Move up">↑</button><button class="btn small" data-act="moveblock" data-i="' + bi + '" data-d="1"' + (bi === total - 1 ? " disabled" : "") + ' aria-label="Move down">↓</button><button class="btn small danger" data-act="delblock" data-i="' + bi + '">Delete</button></div><div class="bbody">' + body + "</div></div>";
+  return '<div class="block"><div class="bhead"><b>' + BLOCKS[b.type].label + '</b><button class="btn small" data-act="moveblock" data-i="' + bi + '" data-d="-1"' + (bi === 0 ? " disabled" : "") + ' aria-label="Move up">↑</button><button class="btn small" data-act="moveblock" data-i="' + bi + '" data-d="1"' + (bi === total - 1 ? " disabled" : "") + ' aria-label="Move down">↓</button><button class="btn small danger" data-act="delblock" data-i="' + bi + '">Delete</button></div><div class="bbody">' + body + fSel(base + ".bg", "Section color", [["none", "Plain"], ["cream", "Cream"], ["sand", "Sand"], ["navy", "Navy blue"], ["maroon", "Maroon"]]) + '<p class="status">Neighboring sections with the same color join into one colored band across the page.</p></div></div>';
 }
 function viewEdit() {
   var p = page(), pi = pageIdx(), base = "pages." + pi;
@@ -390,7 +392,7 @@ document.addEventListener("click", function (e) {
     case "movepage": arr = state.content.pages; var i = +d.i, j = i + +d.d; arr.splice(j, 0, arr.splice(i, 1)[0]); markDirty(); go(); break;
     case "addpage": addPage(); break;
     case "delpage": if (confirm("Delete this page? You can get it back from Past versions.")) { state.content.pages = state.content.pages.filter(function (x) { return x.id !== d.id; }); markDirty(); go(); } break;
-    case "addblock": page().blocks.push(Object.assign({ id: uid() }, BLOCKS[d.t].make())); markDirty(); go(); setTimeout(function () { var bs = document.querySelectorAll(".block"); if (bs.length) bs[bs.length - 1].scrollIntoView({ behavior: "smooth", block: "center" }); }, 30); break;
+    case "addblock": page().blocks.push(Object.assign({ id: uid(), bg: "none" }, BLOCKS[d.t].make())); markDirty(); go(); setTimeout(function () { var bs = document.querySelectorAll(".block"); if (bs.length) bs[bs.length - 1].scrollIntoView({ behavior: "smooth", block: "center" }); }, 30); break;
     case "delblock": if (confirm("Delete this section?")) { page().blocks.splice(+d.i, 1); markDirty(); go(); } break;
     case "moveblock": arr = page().blocks; var a = +d.i; arr.splice(a + +d.d, 0, arr.splice(a, 1)[0]); markDirty(); go(); break;
     case "pickimg": pickPhotos(false, function (r) { setPath(d.path, r[0]); go(); }); break;

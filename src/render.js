@@ -91,11 +91,43 @@ function renderBlock(b) {
         .join("");
       return `<div class="blk-gallery">${items}</div>`;
     }
+    case "embed":
+      return renderEmbed(b);
     case "divider":
       return `<hr class="blk-divider">`;
     default:
       return "";
   }
+}
+
+// Embeds are limited to Facebook, YouTube and Google Maps, so a pasted address can never inject anything else.
+function renderEmbed(b) {
+  const h = Math.min(Math.max(parseInt(b.height, 10) || 600, 200), 1200);
+  const url = String(b.url || "").trim();
+  if (!url) return "";
+  if (b.kind === "facebook") {
+    let u;
+    try { u = new URL(url); } catch { return ""; }
+    if (!/(^|\.)facebook\.com$/i.test(u.hostname) || u.protocol !== "https:") return "";
+    const src = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(u.href)}&tabs=timeline&width=500&height=${h}&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`;
+    return `<div class="blk-embed fb"><iframe src="${esc(src)}" width="500" height="${h}" style="border:0;overflow:hidden" loading="lazy" allow="encrypted-media" title="Facebook feed"></iframe><p class="fb-link"><a href="${esc(u.href)}" target="_blank" rel="noopener">Open our Facebook page</a></p></div>`;
+  }
+  if (b.kind === "file") {
+    // Self-hosted video from the site's /video/ folder (or a client upload).
+    if (!/^\/(video|uploads)\/[\w./-]+$/.test(url) || url.includes("..")) return "";
+    const poster = safeUrl(b.poster);
+    return `<div class="blk-embed video file"><video controls playsinline preload="metadata"${poster ? ` poster="${esc(poster)}"` : ""}><source src="${esc(url)}" type="video/mp4">Your browser can't play this video. <a href="${esc(url)}">Download it</a>.</video></div>`;
+  }
+  if (b.kind === "youtube") {
+    const m = /(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/))([\w-]{11})/.exec(url);
+    if (!m) return "";
+    return `<div class="blk-embed video"><iframe src="https://www.youtube-nocookie.com/embed/${m[1]}" loading="lazy" allowfullscreen title="Video"></iframe></div>`;
+  }
+  if (b.kind === "map") {
+    const src = `https://maps.google.com/maps?q=${encodeURIComponent(url)}&output=embed`;
+    return `<div class="blk-embed map"><iframe src="${esc(src)}" loading="lazy" title="Map" style="height:${Math.min(h, 600)}px"></iframe></div>`;
+  }
+  return "";
 }
 
 export function pagePath(p) {
@@ -161,14 +193,23 @@ export function renderPage(content, page, origin) {
     const big = h.size === "big";
     hero = `<section class="hero ${big ? "hero-big" : "hero-small"}${bg ? " has-img" : ""}"${bg ? ` style="background-image:url('${esc(bg)}')"` : ""}><div class="hero-in"><h1>${esc(h.title || page.title)}</h1>${h.subtitle ? `<p>${esc(h.subtitle)}</p>` : ""}</div></section>`;
   }
-  const blocks = (page.blocks || []).map(renderBlock).join("\n");
-  const noHeroTitle = h.show ? "" : `<h1 class="plain-title">${esc(page.title)}</h1>`;
-  return layout(content, page, origin, `${hero}<div class="wrap">${noHeroTitle}${blocks}</div>`);
+  const BG = new Set(["none", "cream", "sand", "maroon", "navy"]);
+  const bands = [];
+  for (const b of page.blocks || []) {
+    const bg = BG.has(b.bg) ? b.bg : "none";
+    const last = bands[bands.length - 1];
+    if (last && last.bg === bg) last.html.push(renderBlock(b));
+    else bands.push({ bg, html: [renderBlock(b)] });
+  }
+  if (!bands.length) bands.push({ bg: "none", html: [] });
+  const title = h.show ? "" : `<h1 class="plain-title">${esc(page.title)}</h1>`;
+  const body = bands.map((band, i) => `<section class="band bg-${band.bg}"><div class="wrap">${i === 0 ? title : ""}${band.html.join("\n")}</div></section>`).join("\n");
+  return layout(content, page, origin, hero + body);
 }
 
 export function renderNotFound(content, origin) {
   const page = { id: "404", slug: "404", title: "Page not found", hero: { show: false } };
-  const body = `<div class="wrap t-center"><h1 class="plain-title">Page not found</h1><p>Sorry, we couldn't find that page.</p><p><a class="btn btn-solid" href="/">Back to home</a></p></div>`;
+  const body = `<section class="band bg-cream"><div class="wrap t-center"><h1 class="plain-title">Page not found</h1><p>Sorry, we couldn't find that page.</p><p><a class="btn btn-solid" href="/">Back to home</a></p></div></section>`;
   return layout(content, page, origin, body);
 }
 

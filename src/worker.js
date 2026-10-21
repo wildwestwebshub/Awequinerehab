@@ -3,7 +3,8 @@ import { renderPage, renderNotFound, renderSitemap, pagePath } from "./render.js
 import { attemptLogin, clearCookie, getSession, getUsers, makeUser, changePassword } from "./auth.js";
 
 const RESERVED = new Set(["admin", "api", "assets", "images", "uploads", "wp-admin", "wp-content", "wp-json", "sitemap.xml", "robots.txt", "feed"]);
-const BLOCK_TYPES = new Set(["heading", "text", "image", "list", "button", "cards", "split", "gallery", "divider"]);
+const BLOCK_TYPES = new Set(["heading", "text", "image", "list", "button", "cards", "split", "gallery", "embed", "divider"]);
+const BG_VALUES = new Set(["none", "cream", "sand", "maroon", "navy"]);
 const MAX_UPLOAD = 6 * 1024 * 1024;
 const json = (data, status = 200, headers = {}) =>
   new Response(JSON.stringify(data), { status, headers: { "content-type": "application/json", "cache-control": "no-store", ...headers } });
@@ -44,6 +45,7 @@ function normalize(input) {
       blocks: (Array.isArray(p.blocks) ? p.blocks : []).slice(0, 200).filter((b) => b && BLOCK_TYPES.has(b.type)).map((b, i) => {
         const out = JSON.parse(JSON.stringify(b));
         out.id = str(b.id || "b" + Date.now().toString(36) + i, 40).replace(/[^\w-]/g, "");
+        out.bg = BG_VALUES.has(b.bg) ? b.bg : "none";
         return out;
       }),
     };
@@ -193,7 +195,7 @@ export default {
       return new Response(value, { headers: { "content-type": (metadata && metadata.type) || "image/jpeg", "cache-control": "public, max-age=31536000, immutable" } });
     }
 
-    if (path.startsWith("/assets/") || path.startsWith("/images/")) return env.ASSETS.fetch(req);
+    if (path.startsWith("/assets/") || path.startsWith("/images/") || path.startsWith("/video/")) return env.ASSETS.fetch(req);
 
     if (path === "/robots.txt") return new Response(`User-agent: *\nDisallow: /admin/\nSitemap: ${url.origin}/sitemap.xml\n`, { headers: { "content-type": "text/plain" } });
 
