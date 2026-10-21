@@ -87,6 +87,17 @@
           "bg": "sand"
         },
         {
+          "id": "v3",
+          "type": "split",
+          "image": "/images/2026/10/mobile-spa-trailer.jpg",
+          "imageSide": "left",
+          "title": "Power Built in Water",
+          "html": "<p>Walstrom Rehab is a mobile cold water spa. We bring the recovery solutions to you.</p>",
+          "buttonLabel": "See our services",
+          "buttonUrl": "/service-packages/",
+          "bg": "none"
+        },
+        {
           "id": "h3",
           "type": "heading",
           "text": "HEAR IT FROM OUR CLIENTS...",
@@ -194,6 +205,15 @@
       },
       "blocks": [
         {
+          "id": "s0",
+          "type": "image",
+          "src": "/images/2026/10/walstrom-rehab-banner.jpg",
+          "alt": "Walstrom Rehab banner: mobile cold water spa, our products, awequinerehab.com, 608-343-4713",
+          "caption": "",
+          "width": "medium",
+          "bg": "cream"
+        },
+        {
           "id": "s1",
           "type": "heading",
           "text": "Conditioning Package",
@@ -282,6 +302,30 @@
           "id": "a2",
           "type": "gallery",
           "images": [
+            {
+              "src": "/images/2026/10/horse-in-ecb-with-handlers.jpg",
+              "alt": "Dark horse in the ECB aqua treadmill with handlers"
+            },
+            {
+              "src": "/images/2026/10/pony-and-horse-at-ecb.jpg",
+              "alt": "Mini horse and horse at the ECB aqua treadmill"
+            },
+            {
+              "src": "/images/2026/10/trailer-interior-ecb.jpg",
+              "alt": "Inside the mobile trailer"
+            },
+            {
+              "src": "/images/2026/10/horse-and-handlers-outside.jpg",
+              "alt": "Horse and handlers outside the trailer"
+            },
+            {
+              "src": "/images/2026/10/mobile-spa-trailer.jpg",
+              "alt": "The mobile cold water spa trailer"
+            },
+            {
+              "src": "/images/2026/10/walstrom-rehab-banner.jpg",
+              "alt": "Walstrom Rehab banner"
+            },
             {
               "src": "/images/2026/03/Photo-Mar-11-2026-2-03-00-PM.jpg",
               "alt": "Horse in the ECB aqua treadmill"
