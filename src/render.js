@@ -130,6 +130,15 @@ function renderEmbed(b) {
   return "";
 }
 
+// Full-width photo band with a title over it (like a magazine section break).
+function renderBanner(b) {
+  const bg = safeUrl(b.image);
+  if (!bg) return "";
+  const link = safeUrl(b.buttonUrl);
+  const btn = link && b.buttonLabel ? `<p><a class="btn btn-solid" href="${esc(link)}">${esc(b.buttonLabel)}</a></p>` : "";
+  return `<section class="banner" style="background-image:url('${esc(bg)}')"><div class="banner-in">${b.title ? `<h2>${esc(b.title)}</h2>` : ""}${b.text ? `<p class="banner-text">${esc(b.text)}</p>` : ""}${btn}</div></section>`;
+}
+
 export function pagePath(p) {
   return p.slug ? `/${p.slug}/` : "/";
 }
@@ -166,6 +175,8 @@ function layout(content, page, origin, body) {
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${esc(canon)}">
 <meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="website"><meta property="og:url" content="${esc(canon)}">${og ? `<meta property="og:image" content="${esc(og)}">` : ""}
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
 </head><body>
 <a class="skip" href="#main">Skip to content</a>
@@ -191,19 +202,24 @@ export function renderPage(content, page, origin) {
   if (h.show) {
     const bg = safeUrl(h.image);
     const big = h.size === "big";
-    hero = `<section class="hero ${big ? "hero-big" : "hero-small"}${bg ? " has-img" : ""}"${bg ? ` style="background-image:url('${esc(bg)}')"` : ""}><div class="hero-in"><h1>${esc(h.title || page.title)}</h1>${h.subtitle ? `<p>${esc(h.subtitle)}</p>` : ""}</div></section>`;
+    hero = `<section class="hero ${big ? "hero-big" : "hero-small"}${bg ? " has-img" : ""}${h.overlay === "light" ? " hero-light" : ""}"${bg ? ` style="background-image:url('${esc(bg)}')"` : ""}><div class="hero-in"><h1>${esc(h.title || page.title)}</h1>${h.subtitle ? `<p>${esc(h.subtitle)}</p>` : ""}</div></section>`;
   }
   const BG = new Set(["none", "cream", "sand", "maroon", "navy"]);
   const bands = [];
   for (const b of page.blocks || []) {
+    if (b.type === "banner") {
+      const html = renderBanner(b);
+      if (html) bands.push({ banner: html });
+      continue;
+    }
     const bg = BG.has(b.bg) ? b.bg : "none";
     const last = bands[bands.length - 1];
-    if (last && last.bg === bg) last.html.push(renderBlock(b));
+    if (last && !last.banner && last.bg === bg) last.html.push(renderBlock(b));
     else bands.push({ bg, html: [renderBlock(b)] });
   }
   if (!bands.length) bands.push({ bg: "none", html: [] });
   const title = h.show ? "" : `<h1 class="plain-title">${esc(page.title)}</h1>`;
-  const body = bands.map((band, i) => `<section class="band bg-${band.bg}"><div class="wrap">${i === 0 ? title : ""}${band.html.join("\n")}</div></section>`).join("\n");
+  const body = bands.map((band, i) => band.banner || `<section class="band bg-${band.bg}"><div class="wrap">${i === 0 ? title : ""}${band.html.join("\n")}</div></section>`).join("\n");
   return layout(content, page, origin, hero + body);
 }
 

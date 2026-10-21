@@ -3,7 +3,7 @@ import { renderPage, renderNotFound, renderSitemap, pagePath } from "./render.js
 import { attemptLogin, clearCookie, getSession, getUsers, makeUser, changePassword } from "./auth.js";
 
 const RESERVED = new Set(["admin", "api", "assets", "images", "uploads", "wp-admin", "wp-content", "wp-json", "sitemap.xml", "robots.txt", "feed"]);
-const BLOCK_TYPES = new Set(["heading", "text", "image", "list", "button", "cards", "split", "gallery", "embed", "divider"]);
+const BLOCK_TYPES = new Set(["heading", "text", "image", "list", "button", "cards", "split", "gallery", "embed", "banner", "divider"]);
 const BG_VALUES = new Set(["none", "cream", "sand", "maroon", "navy"]);
 const MAX_UPLOAD = 6 * 1024 * 1024;
 const json = (data, status = 200, headers = {}) =>
@@ -41,7 +41,7 @@ function normalize(input) {
       nav: !!p.nav,
       navLabel: str(p.navLabel, 60) || str(p.title, 60),
       metaDescription: str(p.metaDescription, 300),
-      hero: { show: !!h.show, image: str(h.image, 400), title: str(h.title, 200), subtitle: str(h.subtitle, 400), size: h.size === "big" ? "big" : "small" },
+      hero: { show: !!h.show, image: str(h.image, 400), title: str(h.title, 200), subtitle: str(h.subtitle, 400), size: h.size === "big" ? "big" : "small", overlay: h.overlay === "light" ? "light" : "dark" },
       blocks: (Array.isArray(p.blocks) ? p.blocks : []).slice(0, 200).filter((b) => b && BLOCK_TYPES.has(b.type)).map((b, i) => {
         const out = JSON.parse(JSON.stringify(b));
         out.id = str(b.id || "b" + Date.now().toString(36) + i, 40).replace(/[^\w-]/g, "");

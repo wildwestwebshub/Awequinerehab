@@ -22,7 +22,8 @@
         "image": "/images/2026/03/Photo-Mar-11-2026-8-38-37-PM.jpg",
         "title": "RECOVERY",
         "subtitle": "We bring the recovery solutions to you!",
-        "size": "big"
+        "size": "big",
+        "overlay": "light"
       },
       "blocks": [
         {
@@ -70,12 +71,21 @@
           "bg": "cream"
         },
         {
+          "id": "ban1",
+          "type": "banner",
+          "image": "/images/2026/10/mobile-spa-trailer.jpg",
+          "title": "Power Built in Water",
+          "text": "Walstrom Rehab is a mobile cold water spa. We bring the recovery solutions to you.",
+          "buttonLabel": "See our services",
+          "buttonUrl": "/service-packages/"
+        },
+        {
           "id": "v1",
           "type": "heading",
           "text": "See Us in Action",
           "level": 2,
           "align": "center",
-          "bg": "sand"
+          "bg": "none"
         },
         {
           "id": "v2",
@@ -84,17 +94,6 @@
           "url": "/video/aw-equine-rehab.mp4",
           "poster": "/video/aw-equine-rehab-poster.jpg",
           "height": 600,
-          "bg": "sand"
-        },
-        {
-          "id": "v3",
-          "type": "split",
-          "image": "/images/2026/10/mobile-spa-trailer.jpg",
-          "imageSide": "left",
-          "title": "Power Built in Water",
-          "html": "<p>Walstrom Rehab is a mobile cold water spa. We bring the recovery solutions to you.</p>",
-          "buttonLabel": "See our services",
-          "buttonUrl": "/service-packages/",
           "bg": "none"
         },
         {
@@ -157,10 +156,11 @@
       "metaDescription": "News and events from AW Equine Rehab.",
       "hero": {
         "show": true,
-        "image": "",
+        "image": "/images/2026/03/Photo-Mar-11-2026-8-38-37-PM-1-1.jpg",
         "title": "News & Events",
         "subtitle": "",
-        "size": "small"
+        "size": "small",
+        "overlay": "dark"
       },
       "blocks": [
         {
@@ -198,38 +198,22 @@
       "metaDescription": "Conditioning, rehab and training packages, boarding and lessons at AW Equine Rehab.",
       "hero": {
         "show": true,
-        "image": "",
+        "image": "/images/2026/03/IMG_0344-2.jpg",
         "title": "Services",
         "subtitle": "",
-        "size": "small"
+        "size": "small",
+        "overlay": "dark"
       },
       "blocks": [
         {
           "id": "s0",
-          "type": "image",
-          "src": "/images/2026/10/walstrom-rehab-banner.jpg",
-          "alt": "Walstrom Rehab banner: mobile cold water spa, our products, awequinerehab.com, 608-343-4713",
-          "caption": "",
-          "width": "medium",
-          "bg": "cream"
-        },
-        {
-          "id": "s00",
-          "type": "heading",
-          "text": "Our Products",
-          "level": 2,
-          "align": "center",
-          "bg": "cream"
-        },
-        {
-          "id": "s01",
-          "type": "list",
-          "items": [
-            "20 Min Spa Session",
-            "15 Min Red Light Session",
-            "Equi Vibe",
-            "Haul-In Treadmill Session"
-          ],
+          "type": "split",
+          "image": "/images/2026/10/walstrom-rehab-banner.jpg",
+          "imageSide": "left",
+          "title": "Our Products",
+          "html": "<ul><li>20 Min Spa Session</li><li>15 Min Red Light Session</li><li>Equi Vibe</li><li>Haul-In Treadmill Session</li></ul>",
+          "buttonLabel": "Call (608) 343-4713",
+          "buttonUrl": "tel:+16083434713",
           "bg": "cream"
         },
         {
@@ -238,7 +222,7 @@
           "text": "Conditioning Package",
           "level": 2,
           "align": "left",
-          "bg": "cream"
+          "bg": "none"
         },
         {
           "id": "s2",
@@ -246,7 +230,7 @@
           "text": "Rehab Package",
           "level": 2,
           "align": "left",
-          "bg": "cream"
+          "bg": "none"
         },
         {
           "id": "s3",
@@ -254,14 +238,14 @@
           "text": "Training Package",
           "level": 2,
           "align": "left",
-          "bg": "cream"
+          "bg": "none"
         },
         {
           "id": "s4",
           "type": "text",
           "align": "left",
           "html": "<p>ELITE - $1600/month to include aqua session with training.</p><p>STANDARD - $1200/month includes hay and feed.</p>",
-          "bg": "cream"
+          "bg": "none"
         },
         {
           "id": "s5",
@@ -269,14 +253,14 @@
           "text": "Boarding",
           "level": 2,
           "align": "left",
-          "bg": "none"
+          "bg": "cream"
         },
         {
           "id": "s6",
           "type": "text",
           "align": "left",
           "html": "<p>OUTSIDE BOARD - $300/month</p><p>HEATED STALL BOARD - $450/month</p><p>UNHEATED STALL BOARD - $350/month</p>",
-          "bg": "none"
+          "bg": "cream"
         },
         {
           "id": "s7",
@@ -304,10 +288,11 @@
       "metaDescription": "About Walstrom Equine Therapy & Conditioning and AW Equine Rehab.",
       "hero": {
         "show": true,
-        "image": "",
+        "image": "/images/2026/10/mobile-spa-trailer.jpg",
         "title": "Our Why",
         "subtitle": "Let me tell you what led me to create Walstrom Equine Therapy & Conditioning.",
-        "size": "small"
+        "size": "small",
+        "overlay": "dark"
       },
       "blocks": [
         {
@@ -395,10 +380,11 @@
       "metaDescription": "Testimonials from AW Equine Rehab clients.",
       "hero": {
         "show": true,
-        "image": "",
+        "image": "/images/2026/03/Photo-Mar-11-2026-8-38-37-PM-1.jpg",
         "title": "Their Stories...",
         "subtitle": "",
-        "size": "small"
+        "size": "small",
+        "overlay": "dark"
       },
       "blocks": [
         {
