@@ -1,0 +1,127 @@
+{
+  "settings": {
+    "siteName": "AW Equine Rehab",
+    "tagline": "Recovery comes to you!",
+    "phone": "(608) 343-4713",
+    "email": "awequinerehab@outlook.com",
+    "facebook": "https://www.facebook.com/ashlarsperformance",
+    "address": "",
+    "footerText": "Walstrom Equine Therapy & Conditioning",
+    "ctaLabel": "Call today"
+  },
+  "pages": [
+    {
+      "id": "home",
+      "slug": "",
+      "title": "Home",
+      "nav": true,
+      "navLabel": "Home",
+      "metaDescription": "AW Equine Rehab - equine aqua treadmill, red light therapy and Equivibe. Recovery comes to you!",
+      "hero": {
+        "show": true,
+        "image": "/images/2026/03/Photo-Mar-11-2026-8-38-37-PM.jpg",
+        "title": "RECOVERY",
+        "subtitle": "We bring the recovery solutions to you!",
+        "size": "big"
+      },
+      "blocks": [
+        { "id": "h1", "type": "heading", "text": "Walstrom Rehab Services", "level": 2, "align": "center" },
+        { "id": "h2", "type": "heading", "text": "OFFERING THE THERAPY YOUR EQUINE PARTNER DESERVES!", "level": 3, "align": "center" },
+        {
+          "id": "c1", "type": "cards",
+          "items": [
+            {
+              "image": "/images/2026/03/Photo-Mar-11-2026-2-04-11-PM.jpg",
+              "title": "ECB AQUA TREADMILL",
+              "html": "<p>The ECB equine aqua treadmill is an effective tool for horse training and rehabilitation. Installed with the latest technology and performance analysis, the user-friendly system allows for the creation and storage of individual programs for the training and rehabilitation of each horse.</p><p>The equine water treadmill is made with high-quality materials, has numerous safety features, and allows for the use of both fresh and salt water. The full benefits of horse hydrotherapy can be achieved in a safe and simple way.</p>",
+              "linkLabel": "", "linkUrl": ""
+            },
+            {
+              "image": "/images/2026/03/Photo-Mar-11-2026-2-06-42-PM.jpg",
+              "title": "RED LIGHT THERAPY",
+              "html": "<p>RED LIGHT therapy supports healing and recovery. It works by delivering specific wavelengths of red or near-infrared light that penetrate the skin and stimulate cellular activity.</p><p><strong>Key benefits for horses:</strong></p><ul><li>Supports skin and coat health, aiding wound repair and reducing swelling</li><li>Reduces inflammation and pain in muscles, joints, and tendons</li><li>Speeds up healing of soft tissue injuries, wounds, and strains</li><li>Improves circulation, bringing more oxygen and nutrients to tissues</li><li>Promotes muscle relaxation and helps recovery after exercise</li></ul>",
+              "linkLabel": "", "linkUrl": ""
+            },
+            {
+              "image": "/images/2026/03/Screen-Shot-2026-03-11-at-10.40.02-PM-e1773286909840.jpg",
+              "title": "EQUIVIBE",
+              "html": "<p><strong>EQUIVIBE 4080 benefits:</strong></p><ul><li>Improves lymphatic and blood circulation.</li><li>Reduces muscle soreness and inflammation</li><li>Provides true vertical vibration, which mimics natural movement.</li><li>Increases bone density and stimulates hoof growth.</li></ul>",
+              "linkLabel": "", "linkUrl": ""
+            }
+          ]
+        },
+        { "id": "d1", "type": "divider" },
+        { "id": "h3", "type": "heading", "text": "HEAR IT FROM OUR CLIENTS...", "level": 2, "align": "center" },
+        { "id": "t1", "type": "text", "align": "center", "html": "<p>Don't just take our word for it! Listen to what others are saying about the AW Equine Rehab therapies offered. Real horsemen sharing their experiences and triumphs in rehabilitation and injury prevention.</p><p>Keep your horse feeling its best so it can use its body correctly and without compensation for pain or inflammation. A comfortable horse is a great working athlete.</p>" },
+        { "id": "b1", "type": "button", "label": "READ TESTIMONIES HERE", "url": "/testimonials/", "style": "solid", "align": "center" },
+        { "id": "b2", "type": "button", "label": "Find us on Facebook", "url": "https://www.facebook.com/ashlarsperformance", "style": "outline", "align": "center" }
+      ]
+    },
+    {
+      "id": "news",
+      "slug": "blog",
+      "title": "News & Events",
+      "nav": true,
+      "navLabel": "News & Events",
+      "metaDescription": "News and events from AW Equine Rehab.",
+      "hero": { "show": true, "image": "", "title": "News & Events", "subtitle": "", "size": "small" },
+      "blocks": [
+        { "id": "n1", "type": "text", "align": "center", "html": "<p>Check back soon for news and upcoming events. You can also follow us on Facebook.</p>" },
+        { "id": "n2", "type": "button", "label": "Follow us on Facebook", "url": "https://www.facebook.com/ashlarsperformance", "style": "solid", "align": "center" }
+      ]
+    },
+    {
+      "id": "services",
+      "slug": "service-packages",
+      "title": "Services",
+      "nav": true,
+      "navLabel": "Services",
+      "metaDescription": "Conditioning, rehab and training packages, boarding and lessons at AW Equine Rehab.",
+      "hero": { "show": true, "image": "", "title": "Services", "subtitle": "", "size": "small" },
+      "blocks": [
+        { "id": "s1", "type": "heading", "text": "Conditioning Package", "level": 2, "align": "left" },
+        { "id": "s2", "type": "heading", "text": "Rehab Package", "level": 2, "align": "left" },
+        { "id": "s3", "type": "heading", "text": "Training Package", "level": 2, "align": "left" },
+        { "id": "s4", "type": "text", "align": "left", "html": "<p>ELITE - $1600/month to include aqua session with training.</p><p>STANDARD - $1200/month includes hay and feed.</p>" },
+        { "id": "s5", "type": "heading", "text": "Boarding", "level": 2, "align": "left" },
+        { "id": "s6", "type": "text", "align": "left", "html": "<p>OUTSIDE BOARD - $300/month</p><p>HEATED STALL BOARD - $450/month</p><p>UNHEATED STALL BOARD - $350/month</p>" },
+        { "id": "s7", "type": "heading", "text": "Lessons", "level": 2, "align": "left" },
+        { "id": "s8", "type": "text", "align": "left", "html": "<p>Hourly - $50/hour</p>" }
+      ]
+    },
+    {
+      "id": "about",
+      "slug": "about",
+      "title": "About",
+      "nav": true,
+      "navLabel": "About",
+      "metaDescription": "About Walstrom Equine Therapy & Conditioning and AW Equine Rehab.",
+      "hero": { "show": true, "image": "", "title": "Our Why", "subtitle": "Let me tell you what led me to create Walstrom Equine Therapy & Conditioning.", "size": "small" },
+      "blocks": [
+        { "id": "a1", "type": "text", "align": "center", "html": "<p><strong>REHAB | CONDITIONING | TRAINING | BOARDING</strong></p>" },
+        { "id": "a2", "type": "gallery", "images": [
+          { "src": "/images/2026/03/Photo-Mar-11-2026-2-03-00-PM.jpg", "alt": "Horse in the ECB aqua treadmill" },
+          { "src": "/images/2026/03/IMG_0344-2.jpg", "alt": "ECB aqua treadmill controls" },
+          { "src": "/images/2026/03/Photo-Mar-11-2026-8-38-37-PM-1-1.jpg", "alt": "Barrel racing" }
+        ] },
+        { "id": "a3", "type": "heading", "text": "Contact us", "level": 2, "align": "center" },
+        { "id": "a4", "type": "text", "align": "center", "html": "<p>Call <a href=\"tel:+16083434713\">(608) 343-4713</a><br>Email <a href=\"mailto:awequinerehab@outlook.com\">awequinerehab@outlook.com</a></p>" },
+        { "id": "a5", "type": "button", "label": "Find us on Facebook", "url": "https://www.facebook.com/ashlarsperformance", "style": "outline", "align": "center" }
+      ]
+    },
+    {
+      "id": "testimonials",
+      "slug": "testimonials",
+      "title": "Their Stories...",
+      "nav": false,
+      "navLabel": "Testimonials",
+      "metaDescription": "Testimonials from AW Equine Rehab clients.",
+      "hero": { "show": true, "image": "", "title": "Their Stories...", "subtitle": "", "size": "small" },
+      "blocks": [
+        { "id": "t1", "type": "text", "align": "left", "html": "<p>We love to share why we are the perfect choice for your equine conditioning, fitness goals or rehabilitation but we don't just want you to take our word for it. See what others have to say!</p><p>If you have a story to share, or would like to let our potential clients know what we have done for you and your horse, please consider sharing your testimonial so you can help others make the best decisions for their equine partners!</p>" },
+        { "id": "t2", "type": "heading", "text": "Leave Your Story:", "level": 2, "align": "left" },
+        { "id": "t3", "type": "button", "label": "Email us your story", "url": "mailto:awequinerehab@outlook.com?subject=My%20testimonial", "style": "solid", "align": "left" }
+      ]
+    }
+  ]
+}

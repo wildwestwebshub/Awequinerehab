@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Edit your website</title>
+<style>
+:root{--ink:#1e1e26;--muted:#6b7270;--accent:#a1303f;--accent-d:#7e2330;--line:#e4e1de;--bg:#f6f4f2;--card:#fff;--ok:#1f7a4d;--warn:#b45309}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{margin:0 0 .5em;line-height:1.2}
+a{color:var(--accent)}
+.hide{display:none!important}
+/* login */
+.login{max-width:400px;margin:10vh auto;padding:32px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+.login h1{font-size:1.5rem}
+/* layout */
+.top{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:10px 16px;flex-wrap:wrap}
+.top .title{font-weight:700;margin-right:auto}
+.tabs{display:flex;gap:4px;padding:10px 16px 0;max-width:1000px;margin:0 auto;flex-wrap:wrap}
+.tab{border:0;background:transparent;padding:10px 16px;border-radius:10px 10px 0 0;cursor:pointer;font-weight:600;color:var(--muted)}
+.tab[aria-selected=true]{background:var(--card);color:var(--ink);box-shadow:0 -1px 0 var(--line),1px 0 0 var(--line),-1px 0 0 var(--line)}
+.main{max-width:1000px;margin:0 auto;padding:0 16px 80px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:0 12px 12px 12px;padding:20px}
+.status{font-size:.9rem;color:var(--muted)}
+.status.dirty{color:var(--warn);font-weight:600}
+.status.saved{color:var(--ok);font-weight:600}
+/* buttons / fields */
+.btn{border:1px solid var(--line);background:#fff;padding:9px 16px;border-radius:9px;cursor:pointer;font-weight:600;text-decoration:none;color:var(--ink);display:inline-block}
+.btn:hover{border-color:#bbb}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:var(--accent-d)}
+.btn.small{padding:5px 10px;font-size:.88rem}
+.btn.danger{color:#b42318}
+.btn:disabled{opacity:.5;cursor:default}
+label.f{display:block;margin:0 0 14px}
+label.f>span{display:block;font-weight:600;font-size:.9rem;margin-bottom:4px}
+label.f small{display:block;color:var(--muted);margin-top:3px}
+input[type=text],input[type=email],input[type=password],input[type=url],select,textarea{width:100%;padding:10px 12px;border:1px solid #cfcac6;border-radius:9px;background:#fff}
+input:focus,select:focus,textarea:focus,.rte:focus{outline:2px solid #e6b3bb;border-color:var(--accent)}
+.row{display:flex;gap:12px;flex-wrap:wrap}.row>*{flex:1;min-width:180px}
+.check{display:flex;gap:8px;align-items:center;margin:0 0 14px;font-weight:600}
+.check input{width:20px;height:20px}
+.err{color:#b42318;margin:8px 0}
+.note{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:10px 14px;margin:0 0 16px;font-size:.93rem}
+/* page list */
+.plist{display:grid;gap:10px}
+.pitem{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.pitem .nm{flex:1;min-width:160px}.pitem .nm b{display:block}.pitem .nm small{color:var(--muted)}
+.pitem .acts{display:flex;gap:6px;flex-wrap:wrap}
+.pill{font-size:.75rem;padding:2px 8px;border-radius:99px;background:#eef2ee;color:var(--ok);font-weight:700}
+.pill.off{background:#eee;color:var(--muted)}
+/* blocks */
+.sect{border:1px solid var(--line);border-radius:12px;padding:16px;margin:0 0 18px;background:#fcfbfa}
+.sect>h3{font-size:1rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.block{border:1px solid var(--line);border-radius:12px;margin:0 0 14px;background:#fff}
+.bhead{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--line);background:#faf8f6;border-radius:12px 12px 0 0}
+.bhead b{flex:1;font-size:.9rem}
+.bbody{padding:14px}
+.addbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.sub{border:1px dashed #cfcac6;border-radius:10px;padding:12px;margin:0 0 12px}
+/* rich text */
+.rtewrap{border:1px solid #cfcac6;border-radius:9px;background:#fff;margin-bottom:14px}
+.rtebar{display:flex;gap:4px;padding:6px;border-bottom:1px solid var(--line);background:#faf8f6;border-radius:9px 9px 0 0;flex-wrap:wrap}
+.rtebar button{border:1px solid var(--line);background:#fff;border-radius:7px;padding:4px 10px;cursor:pointer;min-width:34px}
+.rte{min-height:90px;padding:10px 12px;outline:none}
+.rte p{margin:0 0 .7em}.rte ul,.rte ol{margin:0 0 .7em;padding-left:1.4em}
+/* image field */
+.imgf{display:flex;gap:12px;align-items:center;margin:0 0 14px}
+.imgf .th{width:96px;height:72px;border:1px solid var(--line);border-radius:8px;background:#f0eeec center/cover no-repeat;flex:none;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.75rem}
+.imgf .ac{display:flex;gap:6px;flex-wrap:wrap}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-bottom:10px}
+.gal>div{position:relative}.gal img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
+.gal button{position:absolute;top:4px;right:4px}
+/* modal */
+.ov{position:fixed;inset:0;background:rgba(20,20,25,.55);z-index:100;display:flex;align-items:flex-start;justify-content:center;padding:4vh 12px;overflow:auto}
+.modal{background:#fff;border-radius:14px;max-width:820px;width:100%;padding:20px}
+.modal.narrow{max-width:440px}
+.mhead{display:flex;align-items:center;gap:10px;margin-bottom:12px}.mhead h2{margin:0;flex:1;font-size:1.2rem}
+.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin:12px 0}
+.pick button{border:2px solid transparent;border-radius:10px;padding:0;background:none;cursor:pointer;text-align:left;position:relative}
+.pick button.sel{border-color:var(--accent)}
+.pick img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;display:block;border:1px solid var(--line)}
+.pick span{display:block;font-size:.72rem;color:var(--muted);padding:3px 2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:10px;z-index:200;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+table{border-collapse:collapse;width:100%}td,th{padding:8px;border-bottom:1px solid var(--line);text-align:left}
+@media(max-width:600px){.top .title{width:100%}.panel{border-radius:12px}.tabs{padding-top:8px}}
+</style></head>
+<body>
+<div id="login" class="login hide">
+  <h1>Sign in to edit your website</h1>
+  <form id="loginForm">
+    <label class="f"><span>Email</span><input type="email" id="lEmail" autocomplete="username" required></label>
+    <label class="f"><span>Password</span><input type="password" id="lPass" autocomplete="current-password" required></label>
+    <div class="err" id="lErr"></div>
+    <button class="btn primary" style="width:100%">Sign in</button>
+  </form>
+</div>
+
+<div id="app" class="hide">
+  <div class="top">
+    <div class="title" id="siteTitle">Edit your website</div>
+    <span class="status" id="status">All changes saved</span>
+    <a class="btn" id="viewSite" href="/" target="_blank" rel="noopener">View website ↗</a>
+    <button class="btn primary" id="saveBtn">Save changes</button>
+    <button class="btn" id="logoutBtn">Sign out</button>
+  </div>
+  <div class="tabs" id="tabs" role="tablist"></div>
+  <div class="main"><div class="panel" id="panel"></div></div>
+</div>
+<div id="overlay"></div>
+<datalist id="pagelist"></datalist>
+
+<script>
+"use strict";
+var $ = function (s, r) { return (r || document).querySelector(s); };
+var state = { me: null, content: null, view: "pages", pageId: null, dirty: false, media: null };
+
+/* ---------- helpers ---------- */
+function h(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+function uid() { return "b" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+function toast(msg) { var t = document.createElement("div"); t.className = "toast"; t.textContent = msg; document.body.appendChild(t); setTimeout(function () { t.remove(); }, 2800); }
+function call(method, url, body, extra) {
+  var opts = { method: method, headers: Object.assign({ "x-requested-with": "aw-admin" }, extra || {}), credentials: "same-origin" };
+  if (body !== undefined) { if (body instanceof ArrayBuffer || body instanceof Blob) opts.body = body; else { opts.body = JSON.stringify(body); opts.headers["content-type"] = "application/json"; } }
+  return fetch(url, opts).then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { if (!r.ok) { var e = new Error(d.error || "Something went wrong."); e.status = r.status; throw e; } return d; }); });
+}
+function getPath(path) { return path.split(".").reduce(function (o, k) { return o == null ? o : o[k]; }, state.content); }
+function setPath(path, v) { var ks = path.split("."), last = ks.pop(); var o = ks.reduce(function (o, k) { return o[k]; }, state.content); o[last] = v; markDirty(); }
+function markDirty() { state.dirty = true; var s = $("#status"); s.textContent = "Unsaved changes"; s.className = "status dirty"; }
+function markSaved() { state.dirty = false; var s = $("#status"); s.textContent = "All changes saved"; s.className = "status saved"; }
+function page() { return state.content.pages.find(function (p) { return p.id === state.pageId; }); }
+function pageIdx() { return state.content.pages.findIndex(function (p) { return p.id === state.pageId; }); }
+window.addEventListener("beforeunload", function (e) { if (state.dirty) { e.preventDefault(); e.returnValue = ""; } });
+
+/* ---------- boot / login ---------- */
+function boot() {
+  call("GET", "/api/me").then(function (me) { state.me = me; return call("GET", "/api/content"); })
+    .then(function (c) { state.content = c; showApp(); })
+    .catch(function () { $("#app").classList.add("hide"); $("#login").classList.remove("hide"); $("#lEmail").focus(); });
+}
+$("#loginForm").addEventListener("submit", function (e) {
+  e.preventDefault(); $("#lErr").textContent = "";
+  call("POST", "/api/login", { email: $("#lEmail").value, password: $("#lPass").value })
+    .then(function () { $("#login").classList.add("hide"); boot(); })
+    .catch(function (er) { $("#lErr").textContent = er.message; });
+});
+$("#logoutBtn").addEventListener("click", function () {
+  if (state.dirty && !confirm("You have unsaved changes. Sign out anyway?")) return;
+  state.dirty = false; call("POST", "/api/logout").then(function () { location.reload(); });
+});
+function showApp() {
+  $("#login").classList.add("hide"); $("#app").classList.remove("hide");
+  $("#siteTitle").textContent = state.content.settings.siteName;
+  render();
+}
+
+/* ---------- save ---------- */
+function save() {
+  var b = $("#saveBtn"); b.disabled = true; b.textContent = "Saving…";
+  return call("PUT", "/api/content", state.content).then(function (r) { state.content = r.content; markSaved(); toast("Saved! Your website is updated (it can take up to a minute to show everywhere)."); $("#siteTitle").textContent = state.content.settings.siteName; })
+    .catch(function (e) { toast("Not saved: " + e.message); if (e.status === 401) location.reload(); })
+    .then(function () { b.disabled = false; b.textContent = "Save changes"; render(); });
+}
+$("#saveBtn").addEventListener("click", save);
+
+/* ---------- tabs ---------- */
+function tabs() {
+  var t = [["pages", "Pages"], ["site", "Contact info"], ["photos", "Photos"], ["history", "Past versions"], ["account", "Logins"]];
+  $("#tabs").innerHTML = t.map(function (x) { return '<button class="tab" role="tab" data-act="tab" data-v="' + x[0] + '" aria-selected="' + (state.view === x[0] || (x[0] === "pages" && state.view === "edit")) + '">' + x[1] + "</button>"; }).join("");
+}
+function render() {
+  tabs();
+  var p = $("#panel");
+  var pl = $("#pagelist"); pl.innerHTML = state.content.pages.map(function (x) { return '<option value="' + h(x.slug ? "/" + x.slug + "/" : "/") + '">' + h(x.title) + "</option>"; }).join("");
+  if (state.view === "pages") p.innerHTML = viewPages();
+  else if (state.view === "edit") p.innerHTML = viewEdit();
+  else if (state.view === "site") p.innerHTML = viewSite();
+  else if (state.view === "photos") { p.innerHTML = "<p>Loading…</p>"; viewPhotos(); }
+  else if (state.view === "history") { p.innerHTML = "<p>Loading…</p>"; viewHistory(); }
+  else if (state.view === "account") { p.innerHTML = "<p>Loading…</p>"; viewAccount(); }
+  initRtes();
+}
+
+/* ---------- pages list ---------- */
+function viewPages() {
+  var ps = state.content.pages;
+  return '<h2>Your pages</h2><p class="status">The order here is the order of the menu on your website.</p><div class="plist">' + ps.map(function (p, i) {
+    return '<div class="pitem"><div class="nm"><b>' + h(p.title) + "</b><small>" + h(p.slug ? "/" + p.slug + "/" : "/ (home page)") + '</small></div>' +
+      '<span class="pill ' + (p.nav ? "" : "off") + '">' + (p.nav ? "In menu" : "Not in menu") + "</span>" +
+      '<div class="acts"><button class="btn small" data-act="movepage" data-i="' + i + '" data-d="-1"' + (i === 0 ? " disabled" : "") + ' aria-label="Move up">↑</button><button class="btn small" data-act="movepage" data-i="' + i + '" data-d="1"' + (i === ps.length - 1 ? " disabled" : "") + ' aria-label="Move down">↓</button>' +
+      '<button class="btn primary small" data-act="editpage" data-id="' + h(p.id) + '">Edit</button>' +
+      (p.slug !== "" ? '<button class="btn danger small" data-act="delpage" data-id="' + h(p.id) + '">Delete</button>' : "") + "</div></div>";
+  }).join("") + '</div><p style="margin-top:18px"><button class="btn" data-act="addpage">+ Add a new page</button></p>';
+}
+
+/* ---------- page editor ---------- */
+var BLOCKS = {
+  heading: { label: "Heading", make: function () { return { type: "heading", text: "", level: 2, align: "left" }; } },
+  text: { label: "Text", make: function () { return { type: "text", html: "<p></p>", align: "left" }; } },
+  image: { label: "Photo", make: function () { return { type: "image", src: "", alt: "", caption: "", width: "full" }; } },
+  gallery: { label: "Photo gallery", make: function () { return { type: "gallery", images: [] }; } },
+  cards: { label: "Cards (photo + text)", make: function () { return { type: "cards", items: [{ image: "", title: "", html: "<p></p>", linkLabel: "", linkUrl: "" }] }; } },
+  split: { label: "Photo beside text", make: function () { return { type: "split", image: "", imageSide: "left", title: "", html: "<p></p>", buttonLabel: "", buttonUrl: "" }; } },
+  button: { label: "Button", make: function () { return { type: "button", label: "Learn more", url: "", style: "solid", align: "left" }; } },
+  list: { label: "Bullet list", make: function () { return { type: "list", items: [""] }; } },
+  divider: { label: "Divider line", make: function () { return { type: "divider" }; } }
+};
+function fText(path, label, opts) { opts = opts || {}; return '<label class="f"><span>' + label + '</span><input type="' + (opts.type || "text") + '" data-bind="' + path + '" value="' + h(getPath(path)) + '"' + (opts.list ? ' list="' + opts.list + '"' : "") + (opts.ph ? ' placeholder="' + h(opts.ph) + '"' : "") + ">" + (opts.help ? "<small>" + opts.help + "</small>" : "") + "</label>"; }
+function fSel(path, label, options) { var v = getPath(path); return '<label class="f"><span>' + label + '</span><select data-bind="' + path + '">' + options.map(function (o) { return '<option value="' + o[0] + '"' + (String(v) === o[0] ? " selected" : "") + ">" + o[1] + "</option>"; }).join("") + "</select></label>"; }
+function fCheck(path, label) { return '<label class="check"><input type="checkbox" data-bind="' + path + '" data-type="bool"' + (getPath(path) ? " checked" : "") + "> " + label + "</label>"; }
+function fRte(path, label) { return '<div><div style="font-weight:600;font-size:.9rem;margin-bottom:4px">' + label + '</div><div class="rtewrap"><div class="rtebar">' +
+  '<button type="button" data-act="fmt" data-c="bold" title="Bold"><b>B</b></button><button type="button" data-act="fmt" data-c="italic" title="Italic"><i>I</i></button><button type="button" data-act="fmt" data-c="insertUnorderedList" title="Bullet list">• List</button><button type="button" data-act="fmt" data-c="insertOrderedList" title="Numbered list">1. List</button><button type="button" data-act="link" title="Make a link">Link</button><button type="button" data-act="fmt" data-c="unlink" title="Remove link">Unlink</button></div>' +
+  '<div class="rte" contenteditable="true" data-rte="' + path + '"></div></div></div>'; }
+function fImg(path, label) { var v = getPath(path); return '<div><div style="font-weight:600;font-size:.9rem;margin-bottom:4px">' + label + '</div><div class="imgf"><div class="th" style="' + (v ? "background-image:url('" + h(v) + "')" : "") + '">' + (v ? "" : "No photo") + '</div><div class="ac"><button class="btn small" data-act="pickimg" data-path="' + path + '">' + (v ? "Change photo" : "Choose photo") + "</button>" + (v ? '<button class="btn small" data-act="clearimg" data-path="' + path + '">Remove</button>' : "") + "</div></div></div>"; }
+
+function blockEditor(b, pi, bi, total) {
+  var base = "pages." + pi + ".blocks." + bi, body = "";
+  var align = fSel(base + ".align", "Alignment", [["left", "Left"], ["center", "Centered"], ["right", "Right"]]);
+  switch (b.type) {
+    case "heading": body = fText(base + ".text", "Heading text") + '<div class="row">' + fSel(base + ".level", "Size", [["2", "Large"], ["3", "Smaller"]]).replace("<select", '<select data-type="int"') + align + "</div>"; break;
+    case "text": body = fRte(base + ".html", "Text") + align; break;
+    case "image": body = fImg(base + ".src", "Photo") + fText(base + ".alt", "Describe the photo (for screen readers)") + fText(base + ".caption", "Caption (optional)") + fSel(base + ".width", "Size", [["full", "Full width"], ["medium", "Medium"]]); break;
+    case "list": body = '<p class="status">One bullet per line.</p><textarea rows="5" data-bind="' + base + '.items" data-type="lines">' + h((b.items || []).join("\n")) + "</textarea>"; break;
+    case "button": body = fText(base + ".label", "Button words") + fText(base + ".url", "Where it goes", { list: "pagelist", help: "Pick one of your pages, or paste a full address like https://… , tel:+16083434713 or mailto:you@example.com" }) + '<div class="row">' + fSel(base + ".style", "Look", [["solid", "Filled"], ["outline", "Outline"]]) + align + "</div>"; break;
+    case "divider": body = '<p class="status">A thin line across the page.</p>'; break;
+    case "gallery":
+      body = '<div class="gal">' + (b.images || []).map(function (g, i) { return '<div><img src="' + h(g.src) + '" alt=""><button class="btn small danger" data-act="galdel" data-path="' + base + '.images" data-i="' + i + '" aria-label="Remove photo">✕</button></div>'; }).join("") + '</div><button class="btn small" data-act="galadd" data-path="' + base + '.images">+ Add photos</button><p class="status">Visitors can tap a photo to see it larger.</p>'; break;
+    case "split": body = fImg(base + ".image", "Photo") + fSel(base + ".imageSide", "Photo position", [["left", "Photo on the left"], ["right", "Photo on the right"]]) + fText(base + ".title", "Heading") + fRte(base + ".html", "Text") + '<div class="row">' + fText(base + ".buttonLabel", "Button words (optional)") + fText(base + ".buttonUrl", "Button goes to", { list: "pagelist" }) + "</div>"; break;
+    case "cards": body = (b.items || []).map(function (c, i) {
+      var cb = base + ".items." + i;
+      return '<div class="sub"><div style="display:flex;gap:6px;margin-bottom:8px"><b style="flex:1">Card ' + (i + 1) + '</b><button class="btn small" data-act="cardmove" data-path="' + base + '.items" data-i="' + i + '" data-d="-1"' + (i === 0 ? " disabled" : "") + '>↑</button><button class="btn small" data-act="cardmove" data-path="' + base + '.items" data-i="' + i + '" data-d="1"' + (i === b.items.length - 1 ? " disabled" : "") + '>↓</button><button class="btn small danger" data-act="carddel" data-path="' + base + '.items" data-i="' + i + '">Delete</button></div>' +
+        fImg(cb + ".image", "Photo") + fText(cb + ".title", "Title") + fRte(cb + ".html", "Text") + '<div class="row">' + fText(cb + ".linkLabel", "Button words (optional)") + fText(cb + ".linkUrl", "Button goes to", { list: "pagelist" }) + "</div></div>";
+    }).join("") + '<button class="btn small" data-act="cardadd" data-path="' + base + '.items">+ Add a card</button>'; break;
+  }
+  return '<div class="block"><div class="bhead"><b>' + BLOCKS[b.type].label + '</b><button class="btn small" data-act="moveblock" data-i="' + bi + '" data-d="-1"' + (bi === 0 ? " disabled" : "") + ' aria-label="Move up">↑</button><button class="btn small" data-act="moveblock" data-i="' + bi + '" data-d="1"' + (bi === total - 1 ? " disabled" : "") + ' aria-label="Move down">↓</button><button class="btn small danger" data-act="delblock" data-i="' + bi + '">Delete</button></div><div class="bbody">' + body + "</div></div>";
+}
+function viewEdit() {
+  var p = page(), pi = pageIdx(), base = "pages." + pi;
+  if (!p) { state.view = "pages"; return viewPages(); }
+  var isHome = p.slug === "";
+  var out = '<p><button class="btn small" data-act="tab" data-v="pages">← All pages</button></p><h2>' + h(p.title) + "</h2>";
+  out += '<div class="sect"><h3>Page settings</h3><div class="row">' + fText(base + ".title", "Page title") + fText(base + ".navLabel", "Menu label") + "</div>" +
+    (isHome ? '<p class="status">This is your home page (address: /).</p>' : fText(base + ".slug", "Page address", { help: "Letters, numbers and dashes. Your page will be at yourwebsite.com/<b>" + h(p.slug) + "</b>/ — changing this breaks old links to the page." })) +
+    fCheck(base + ".nav", "Show this page in the menu at the top") + fText(base + ".metaDescription", "Short description for Google (optional)") + "</div>";
+  out += '<div class="sect"><h3>Top banner</h3>' + fCheck(base + ".hero.show", "Show a banner at the top of the page") +
+    '<div class="row">' + fText(base + ".hero.title", "Banner title") + fText(base + ".hero.subtitle", "Banner subtitle (optional)") + "</div>" +
+    fImg(base + ".hero.image", "Banner photo (optional)") + fSel(base + ".hero.size", "Banner size", [["small", "Small"], ["big", "Big, with large letters (like the home page)"]]) + "</div>";
+  out += '<div class="sect"><h3>Page content</h3>' + (p.blocks.length ? p.blocks.map(function (b, i) { return blockEditor(b, pi, i, p.blocks.length); }).join("") : '<p class="status">This page has no content yet. Add something below.</p>') +
+    '<div class="addbar"><b style="align-self:center">Add:</b>' + Object.keys(BLOCKS).map(function (k) { return '<button class="btn small" data-act="addblock" data-t="' + k + '">' + BLOCKS[k].label + "</button>"; }).join("") + "</div></div>";
+  out += '<p><button class="btn primary" data-act="save">Save changes</button></p>';
+  return out;
+}
+
+/* ---------- contact info ---------- */
+function viewSite() {
+  return '<h2>Contact info &amp; footer</h2><p class="status">Shown in the footer and on the "Call today" button at the top of every page.</p>' +
+    fText("settings.siteName", "Business name") + fText("settings.tagline", "Tagline") + '<div class="row">' + fText("settings.phone", "Phone number", { help: "The top button dials this number on a phone." }) + fText("settings.ctaLabel", "Top button words") + "</div>" +
+    fText("settings.email", "Email", { type: "email" }) + fText("settings.facebook", "Facebook page address", { ph: "https://www.facebook.com/…" }) + fText("settings.address", "Address (optional)") + fText("settings.footerText", "Footer line") +
+    '<p><button class="btn primary" data-act="save">Save changes</button></p>';
+}
+
+/* ---------- photos ---------- */
+function loadMedia(force) { if (state.media && !force) return Promise.resolve(state.media); return call("GET", "/api/media").then(function (m) { state.media = m; return m; }); }
+function viewPhotos() {
+  loadMedia(true).then(function (m) {
+    var up = m.uploads.map(function (u) { return '<div style="position:relative"><button class="pickbtn" style="border:0;padding:0;background:none"><img src="' + h(u.src) + '" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;border:1px solid var(--line)"></button><button class="btn small danger" style="position:absolute;top:4px;right:4px" data-act="delmedia" data-id="' + h(u.id.slice(4)) + '">Delete</button><span class="status" style="display:block;font-size:.72rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + h(u.name) + "</span></div>"; }).join("");
+    $("#panel").innerHTML = '<h2>Photos</h2><p class="status">Upload photos here, then choose them when you edit a page. Big phone photos are shrunk automatically so your website stays fast.</p><p><label class="btn primary" style="cursor:pointer">Upload photos<input type="file" accept="image/*" multiple hidden id="fileIn"></label> <span id="upstat" class="status"></span></p>' +
+      '<h3>Your uploads</h3><div class="pick" style="grid-template-columns:repeat(auto-fill,minmax(130px,1fr))">' + (up || '<p class="status">Nothing uploaded yet.</p>') + '</div><h3>Photos from your old website</h3><div class="pick">' + m.site.map(function (s) { return '<div><img src="' + h(s.src) + '" alt=""><span>' + h(s.name) + "</span></div>"; }).join("") + "</div>";
+    $("#fileIn").addEventListener("change", function (e) { uploadFiles(e.target.files, function () { viewPhotos(); }); });
+  }).catch(function (e) { $("#panel").innerHTML = '<p class="err">' + h(e.message) + "</p>"; });
+}
+function shrink(file) {
+  return new Promise(function (res, rej) {
+    var url = URL.createObjectURL(file), im = new Image();
+    im.onload = function () {
+      var max = 1800, r = Math.min(1, max / Math.max(im.naturalWidth, im.naturalHeight));
+      var c = document.createElement("canvas"); c.width = Math.round(im.naturalWidth * r); c.height = Math.round(im.naturalHeight * r);
+      var x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height); x.drawImage(im, 0, 0, c.width, c.height);
+      c.toBlob(function (b) { URL.revokeObjectURL(url); b ? res(b) : rej(new Error("Could not read that picture.")); }, "image/jpeg", 0.85);
+    };
+    im.onerror = function () { URL.revokeObjectURL(url); rej(new Error("That file isn't a picture this page can read.")); };
+    im.src = url;
+  });
+}
+function uploadFiles(files, done) {
+  var list = Array.prototype.slice.call(files), added = [], n = 0;
+  var st = $("#upstat") || $("#upmsg");
+  function next() {
+    if (!list.length) { if (st) st.textContent = ""; state.media = null; toast(added.length ? added.length + " photo(s) uploaded." : "No photos uploaded."); return done(added); }
+    var f = list.shift(); n++;
+    if (st) st.textContent = "Uploading " + n + "…";
+    shrink(f).then(function (b) { return b.arrayBuffer(); })
+      .then(function (buf) { return call("POST", "/api/upload", buf, { "content-type": "image/jpeg", "x-filename": encodeURIComponent(f.name.replace(/\.\w+$/, "") + ".jpg") }); })
+      .then(function (r) { added.push(r.src); }).catch(function (e) { toast(f.name + ": " + e.message); }).then(next);
+  }
+  next();
+}
+/* photo picker modal */
+function pickPhotos(multi, cb) {
+  loadMedia(true).then(function (m) {
+    var all = m.uploads.map(function (u) { return { src: u.src, name: u.name }; }).concat(m.site);
+    var sel = [];
+    var ov = $("#overlay");
+    function draw() {
+      ov.innerHTML = '<div class="ov"><div class="modal"><div class="mhead"><h2>' + (multi ? "Choose photos" : "Choose a photo") + '</h2><label class="btn" style="cursor:pointer">Upload new<input hidden type="file" accept="image/*" multiple id="pkIn"></label><button class="btn" data-act="closemodal">Cancel</button></div><span id="upmsg" class="status"></span><div class="pick">' +
+        all.map(function (a) { return '<button data-src="' + h(a.src) + '" class="' + (sel.indexOf(a.src) >= 0 ? "sel" : "") + '"><img src="' + h(a.src) + '" alt=""><span>' + h(a.name) + "</span></button>"; }).join("") + "</div>" + (multi ? '<button class="btn primary" id="pkDone">Add ' + (sel.length || "") + " selected</button>" : "") + "</div></div>";
+      $("#pkIn", ov).addEventListener("change", function (e) { uploadFiles(e.target.files, function (added) { loadMedia(true).then(function (m2) { all = m2.uploads.map(function (u) { return { src: u.src, name: u.name }; }).concat(m2.site); if (multi) sel = sel.concat(added); draw(); if (!multi && added.length) { ov.innerHTML = ""; cb([added[0]]); } }); }); });
+      Array.prototype.forEach.call(ov.querySelectorAll(".pick button"), function (b) { b.addEventListener("click", function () {
+        var s = b.getAttribute("data-src");
+        if (!multi) { ov.innerHTML = ""; return cb([s]); }
+        var i = sel.indexOf(s); if (i >= 0) sel.splice(i, 1); else sel.push(s); draw();
+      }); });
+      var d = $("#pkDone", ov); if (d) d.addEventListener("click", function () { ov.innerHTML = ""; cb(sel); });
+    }
+    draw();
+  }).catch(function (e) { toast(e.message); });
+}
+
+/* ---------- history ---------- */
+function viewHistory() {
+  call("GET", "/api/revisions").then(function (r) {
+    $("#panel").innerHTML = '<h2>Past versions</h2><p class="status">Every time you save, the previous version is kept for 90 days. Restoring one replaces the current website content (and the current version is kept too).</p>' + (r.items.length ? "<table><tr><th>When</th><th>Saved by</th><th></th></tr>" + r.items.map(function (i) { return "<tr><td>" + h(new Date(i.when).toLocaleString()) + "</td><td>" + h(i.by || "") + '</td><td><button class="btn small" data-act="restore" data-id="' + h(i.id) + '">Restore</button></td></tr>'; }).join("") + "</table>" : '<p class="status">No past versions yet — they appear after your first save.</p>');
+  }).catch(function (e) { $("#panel").innerHTML = '<p class="err">' + h(e.message) + "</p>"; });
+}
+
+/* ---------- account / logins ---------- */
+function viewAccount() {
+  var owner = state.me.role === "owner";
+  var html = '<h2>Your login</h2><p>Signed in as <b>' + h(state.me.email) + "</b>.</p>";
+  if (owner) html += '<div class="note">This is the owner login. Its password is set in the Cloudflare dashboard (Worker → Settings → Variables and Secrets → ADMIN_PASSWORD). Add logins for your client below.</div>';
+  else html += '<h3>Change your password</h3><label class="f"><span>Current password</span><input type="password" id="pwCur" autocomplete="current-password"></label><label class="f"><span>New password (10+ characters)</span><input type="password" id="pwNew" autocomplete="new-password"></label><p><button class="btn primary" data-act="chpw">Change password</button></p><div id="pwMsg"></div>';
+  if (!owner) { $("#panel").innerHTML = html; return; }
+  call("GET", "/api/users").then(function (r) {
+    html += "<h3>People who can edit this website</h3>" + (r.users.length ? "<table>" + r.users.map(function (u) { return "<tr><td>" + h(u.email) + '</td><td style="text-align:right"><button class="btn small danger" data-act="deluser" data-email="' + h(u.email) + '">Remove</button></td></tr>'; }).join("") + "</table>" : '<p class="status">No one else yet.</p>') +
+      '<h3 style="margin-top:20px">Add a login</h3><div class="row"><label class="f"><span>Email</span><input type="email" id="nuEmail" autocomplete="off"></label><label class="f"><span>Password (10+ characters)</span><input type="text" id="nuPass" autocomplete="off"></label></div><p><button class="btn primary" data-act="adduser">Add login</button></p><p class="status">Adding an email that already exists resets its password. Give the client their password and ask them to change it after their first sign-in.</p>';
+    $("#panel").innerHTML = html;
+  }).catch(function (e) { $("#panel").innerHTML = html + '<p class="err">' + h(e.message) + "</p>"; });
+}
+
+/* ---------- rich text editors ---------- */
+function cleanHtml(el) {
+  var allowed = { P: 1, BR: 1, STRONG: 1, B: 1, EM: 1, I: 1, U: 1, A: 1, UL: 1, OL: 1, LI: 1 };
+  var c = el.cloneNode(true);
+  (function walk(n) {
+    Array.prototype.slice.call(n.childNodes).forEach(function (k) {
+      if (k.nodeType === 8) { k.remove(); return; }
+      if (k.nodeType !== 1) return;
+      walk(k);
+      if (k.tagName === "DIV") { var p = document.createElement("p"); while (k.firstChild) p.appendChild(k.firstChild); k.replaceWith(p); return; }
+      if (!allowed[k.tagName]) { while (k.firstChild) k.parentNode.insertBefore(k.firstChild, k); k.remove(); return; }
+      var href = k.tagName === "A" ? k.getAttribute("href") : null;
+      Array.prototype.slice.call(k.attributes).forEach(function (a) { k.removeAttribute(a.name); });
+      if (href) k.setAttribute("href", href);
+    });
+  })(c);
+  var out = c.innerHTML.replace(/<p><br><\/p>/g, "").trim();
+  if (out && !/^<(p|ul|ol)/i.test(out)) out = "<p>" + out + "</p>";
+  return out;
+}
+function initRtes() {
+  Array.prototype.forEach.call(document.querySelectorAll(".rte"), function (el) {
+    el.innerHTML = getPath(el.getAttribute("data-rte")) || "<p></p>";
+    el.addEventListener("input", function () { setPath(el.getAttribute("data-rte"), cleanHtml(el)); });
+    el.addEventListener("paste", function (e) { e.preventDefault(); var t = (e.clipboardData || window.clipboardData).getData("text/plain"); document.execCommand("insertText", false, t); });
+  });
+}
+var savedRange = null, savedRte = null;
+
+/* ---------- events ---------- */
+document.addEventListener("input", function (e) {
+  var el = e.target, path = el.getAttribute && el.getAttribute("data-bind");
+  if (!path) return;
+  var t = el.getAttribute("data-type"), v = el.value;
+  if (t === "bool") v = el.checked; else if (t === "int") v = parseInt(v, 10); else if (t === "lines") v = v.split("\n").map(function (x) { return x.trim(); }).filter(Boolean);
+  setPath(path, v);
+  if (path.slice(-6) === ".title" && path.split(".").length === 3) { var hh = $("#panel h2"); if (hh) hh.textContent = v; }
+});
+document.addEventListener("change", function (e) { var el = e.target; if (el.getAttribute && el.getAttribute("data-bind") && el.tagName === "SELECT") { /* already handled by input */ } });
+document.addEventListener("mousedown", function (e) { if (e.target.closest(".rtebar")) e.preventDefault(); });
+
+document.addEventListener("click", function (e) {
+  var b = e.target.closest("[data-act]"); if (!b) return;
+  var act = b.getAttribute("data-act"), d = b.dataset, p, arr;
+  function go() { render(); }
+  switch (act) {
+    case "tab": state.view = d.v; render(); break;
+    case "save": save(); break;
+    case "editpage": state.pageId = d.id; state.view = "edit"; render(); window.scrollTo(0, 0); break;
+    case "movepage": arr = state.content.pages; var i = +d.i, j = i + +d.d; arr.splice(j, 0, arr.splice(i, 1)[0]); markDirty(); go(); break;
+    case "addpage": addPage(); break;
+    case "delpage": if (confirm("Delete this page? You can get it back from Past versions.")) { state.content.pages = state.content.pages.filter(function (x) { return x.id !== d.id; }); markDirty(); go(); } break;
+    case "addblock": page().blocks.push(Object.assign({ id: uid() }, BLOCKS[d.t].make())); markDirty(); go(); setTimeout(function () { var bs = document.querySelectorAll(".block"); if (bs.length) bs[bs.length - 1].scrollIntoView({ behavior: "smooth", block: "center" }); }, 30); break;
+    case "delblock": if (confirm("Delete this section?")) { page().blocks.splice(+d.i, 1); markDirty(); go(); } break;
+    case "moveblock": arr = page().blocks; var a = +d.i; arr.splice(a + +d.d, 0, arr.splice(a, 1)[0]); markDirty(); go(); break;
+    case "pickimg": pickPhotos(false, function (r) { setPath(d.path, r[0]); go(); }); break;
+    case "clearimg": setPath(d.path, ""); go(); break;
+    case "galadd": pickPhotos(true, function (r) { var g = getPath(d.path); r.forEach(function (s) { g.push({ src: s, alt: "" }); }); markDirty(); go(); }); break;
+    case "galdel": getPath(d.path).splice(+d.i, 1); markDirty(); go(); break;
+    case "cardadd": getPath(d.path).push({ image: "", title: "", html: "<p></p>", linkLabel: "", linkUrl: "" }); markDirty(); go(); break;
+    case "carddel": if (confirm("Delete this card?")) { getPath(d.path).splice(+d.i, 1); markDirty(); go(); } break;
+    case "cardmove": arr = getPath(d.path); var c = +d.i; arr.splice(c + +d.d, 0, arr.splice(c, 1)[0]); markDirty(); go(); break;
+    case "closemodal": $("#overlay").innerHTML = ""; break;
+    case "fmt": document.execCommand(d.c, false, null); var rt = (document.activeElement && document.activeElement.closest(".rte")); break;
+    case "link": openLink(b); break;
+    case "delmedia": if (confirm("Delete this photo? Pages that use it will show a broken picture.")) call("DELETE", "/api/media/" + encodeURIComponent(d.id)).then(function () { state.media = null; viewPhotos(); }).catch(function (er) { toast(er.message); }); break;
+    case "restore": if (confirm("Restore this version? Your unsaved edits (if any) will be lost.")) call("POST", "/api/revisions/restore", { id: d.id }).then(function (r) { state.content = r.content; markSaved(); toast("Restored."); state.view = "pages"; render(); }).catch(function (er) { toast(er.message); }); break;
+    case "chpw": call("POST", "/api/password", { current: $("#pwCur").value, next: $("#pwNew").value }).then(function () { $("#pwMsg").innerHTML = '<p class="status saved">Password changed.</p>'; $("#pwCur").value = $("#pwNew").value = ""; }).catch(function (er) { $("#pwMsg").innerHTML = '<p class="err">' + h(er.message) + "</p>"; }); break;
+    case "adduser": call("POST", "/api/users", { email: $("#nuEmail").value, password: $("#nuPass").value }).then(function () { toast("Login added."); viewAccount(); }).catch(function (er) { toast(er.message); }); break;
+    case "deluser": if (confirm("Remove " + d.email + "?")) call("DELETE", "/api/users?email=" + encodeURIComponent(d.email)).then(function () { viewAccount(); }).catch(function (er) { toast(er.message); }); break;
+  }
+});
+function addPage() {
+  var ov = $("#overlay");
+  ov.innerHTML = '<div class="ov"><div class="modal narrow"><div class="mhead"><h2>Add a page</h2></div><label class="f"><span>Page title</span><input type="text" id="npTitle" placeholder="Example: Our Horses"></label><div class="row"><button class="btn primary" id="npOk">Create page</button><button class="btn" data-act="closemodal">Cancel</button></div></div></div>';
+  $("#npTitle").focus();
+  $("#npOk").addEventListener("click", function () {
+    var t = $("#npTitle").value.trim(); if (!t) return;
+    var slug = t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "page", base = slug, n = 2;
+    while (state.content.pages.some(function (p) { return p.slug === slug; })) slug = base + "-" + n++;
+    var np = { id: "p" + Date.now().toString(36), slug: slug, title: t, nav: true, navLabel: t, metaDescription: "", hero: { show: true, image: "", title: t, subtitle: "", size: "small" }, blocks: [{ id: uid(), type: "text", html: "<p></p>", align: "left" }] };
+    state.content.pages.push(np); markDirty(); ov.innerHTML = ""; state.pageId = np.id; state.view = "edit"; render();
+  });
+}
+function openLink(btn) {
+  var rte = btn.closest(".rtewrap").querySelector(".rte"), sel = window.getSelection();
+  savedRange = sel.rangeCount ? sel.getRangeAt(0).cloneRange() : null; savedRte = rte;
+  var ov = $("#overlay");
+  ov.innerHTML = '<div class="ov"><div class="modal narrow"><div class="mhead"><h2>Make a link</h2></div><p class="status">Select some words first, then enter where they should go.</p><label class="f"><span>Link goes to</span><input type="text" id="lkUrl" list="pagelist" placeholder="/about/ or https://… or tel:+1…"></label><div class="row"><button class="btn primary" id="lkOk">Add link</button><button class="btn" data-act="closemodal">Cancel</button></div></div></div>';
+  $("#lkUrl").focus();
+  $("#lkOk").addEventListener("click", function () {
+    var u = $("#lkUrl").value.trim(); ov.innerHTML = ""; if (!u) return;
+    if (!/^(https?:|mailto:|tel:|\/|#)/i.test(u)) u = /@/.test(u) ? "mailto:" + u : "https://" + u;
+    savedRte.focus(); var s = window.getSelection(); s.removeAllRanges(); if (savedRange) s.addRange(savedRange);
+    document.execCommand("createLink", false, u); savedRte.dispatchEvent(new Event("input"));
+  });
+}
+boot();
+</script>
+</body></html>
