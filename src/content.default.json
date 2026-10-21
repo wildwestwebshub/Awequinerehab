@@ -43,6 +43,14 @@
           "bg": "cream"
         },
         {
+          "id": "t0",
+          "type": "text",
+          "align": "center",
+          "narrow": true,
+          "html": "<p>We specialize in the care, recovery, and training of performance horses. Our new service line will focus on hydrotherapy, using a water treadmill and salt water spa to help horses recover from injuries, maintain fitness during layups, and enhance performance.</p>",
+          "bg": "cream"
+        },
+        {
           "id": "c1",
           "type": "cards",
           "items": [
@@ -78,6 +86,40 @@
           "text": "Walstrom Rehab is a mobile cold water spa. We bring the recovery solutions to you.",
           "buttonLabel": "See our services",
           "buttonUrl": "/service-packages/"
+        },
+        {
+          "id": "wc1",
+          "type": "heading",
+          "text": "What Can We Do for You?",
+          "level": 2,
+          "align": "center",
+          "bg": "none"
+        },
+        {
+          "id": "wc2",
+          "type": "text",
+          "align": "center",
+          "narrow": true,
+          "html": "<p>We provide customized programs designed to improve soundness, enhance performance, and support long-term equine health. Whether your horse is coming back from injury or maintaining peak condition, our goal is to deliver structured, results-driven care tailored to each individual horse.</p>",
+          "bg": "none"
+        },
+        {
+          "id": "wc3",
+          "type": "button",
+          "label": "Contact us",
+          "url": "mailto:awequinerehab@outlook.com",
+          "style": "solid",
+          "align": "center",
+          "bg": "none"
+        },
+        {
+          "id": "wc4",
+          "type": "button",
+          "label": "Learn more",
+          "url": "/about/",
+          "style": "outline",
+          "align": "center",
+          "bg": "none"
         },
         {
           "id": "v1",
@@ -163,6 +205,20 @@
         "overlay": "dark"
       },
       "blocks": [
+        {
+          "id": "n0",
+          "type": "cards",
+          "bg": "cream",
+          "items": [
+            {
+              "image": "/images/2026/10/horse-in-ecb-with-handlers.jpg",
+              "title": "Why I Created Walstrom Equine Therapy & Conditioning",
+              "html": "<p>If there’s one thing that has shaped my life, it’s horses.</p><p>For over 10 years, I’ve been immersed in the performance horse world — riding, training, and learning what it truly takes to develop horses that can compete at a high level.</p>",
+              "linkLabel": "Read Ashley’s story",
+              "linkUrl": "/about/"
+            }
+          ]
+        },
         {
           "id": "n1",
           "type": "text",
@@ -285,7 +341,7 @@
       "title": "About",
       "nav": true,
       "navLabel": "About",
-      "metaDescription": "About Walstrom Equine Therapy & Conditioning and AW Equine Rehab.",
+      "metaDescription": "The story behind Walstrom Equine Therapy & Conditioning, from Ashley Walstrom.",
       "hero": {
         "show": true,
         "image": "/images/2026/10/mobile-spa-trailer.jpg",
@@ -295,6 +351,14 @@
         "overlay": "dark"
       },
       "blocks": [
+        {
+          "id": "bio1",
+          "type": "text",
+          "align": "left",
+          "narrow": true,
+          "html": "<p>If there’s one thing that has shaped my life, it’s horses.</p><p>For over 10 years, I’ve been immersed in the performance horse world — riding, training, and learning what it truly takes to develop horses that can compete at a high level. Along the way, I started to notice a pattern… even the most talented horses can only go as far as their bodies allow them.</p><p>I’ve worked with horses that had all the heart and ability in the world, but were held back by soreness, setbacks, or simply not having the right kind of history behind them to support them. And I’ve also seen what happens when a horse feels good — they move differently, they try harder, and everything just comes together.</p><p>That’s what led me to create <strong>Walstrom Equine Therapy &amp; Conditioning</strong>.</p><p>This isn’t just about having the right equipment. It’s about understanding the horse in front of you — how they move, what they need, and how to help them improve in a way that supports their long-term soundness and performance.</p><p>Through services like aqua treadmill conditioning and cold saltwater therapy, I work with horses in all stages — whether they’re coming back from an injury, needing a reset, or simply looking to stay competitive and strong throughout their season.</p><p>My goal is simple:</p><blockquote>To help horses feel and perform at their absolute best.</blockquote><p>Because at the end of the day, these horses give us everything they have.</p><p>If you’re looking to help your horse recover, build strength, or stay competitive longer — I’d love to be a part of your team.</p><p><em>— Ashley Walstrom<br>Walstrom Equine Therapy &amp; Conditioning</em></p>",
+          "bg": "none"
+        },
         {
           "id": "a1",
           "type": "text",
@@ -348,7 +412,7 @@
         {
           "id": "a3",
           "type": "heading",
-          "text": "Contact us",
+          "text": "Contact Us",
           "level": 2,
           "align": "center",
           "bg": "maroon"
@@ -357,7 +421,7 @@
           "id": "a4",
           "type": "text",
           "align": "center",
-          "html": "<p>Call <a href=\"tel:+16083434713\">(608) 343-4713</a><br>Email <a href=\"mailto:awequinerehab@outlook.com\">awequinerehab@outlook.com</a></p>",
+          "html": "<p><strong>Ashley Walstrom</strong><br>Call <a href=\"tel:+16083434713\">608-343-4713</a><br>Email <a href=\"mailto:awequinerehab@outlook.com\">Awequinerehab@outlook.com</a></p>",
           "bg": "maroon"
         },
         {

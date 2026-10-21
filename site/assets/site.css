@@ -88,6 +88,11 @@ h3.blk-heading::after{display:none}
 .blk-heading.t-center::after{margin-left:auto;margin-right:auto}
 .blk-heading.t-right::after{margin-left:auto}
 .blk-text p{margin:0 0 1em}
+.blk-text.narrow{max-width:760px;margin-left:auto;margin-right:auto}
+.blk-text.narrow p{font-size:1.08rem}
+.blk-text blockquote{margin:1.6em 0;padding:.2em 0 .2em 1.4em;border-left:3px solid var(--gold);font-family:var(--serif);font-size:1.4rem;line-height:1.4;color:var(--ink)}
+.bg-navy .blk-text blockquote,.bg-maroon .blk-text blockquote{color:#fff}
+.blk-text .sig{margin-top:1.8em;font-family:var(--serif);font-size:1.15rem;color:var(--ink)}
 .blk-text ul,.blk-text ol{padding-left:1.3em;margin:0 0 1em}
 .blk-text li{margin-bottom:.4em}
 .blk-list{padding-left:0;list-style:none;display:grid;gap:.6em;max-width:560px;margin-left:auto;margin-right:auto}

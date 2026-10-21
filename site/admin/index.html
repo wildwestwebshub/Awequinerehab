@@ -221,7 +221,7 @@ function blockEditor(b, pi, bi, total) {
   var align = fSel(base + ".align", "Alignment", [["left", "Left"], ["center", "Centered"], ["right", "Right"]]);
   switch (b.type) {
     case "heading": body = fText(base + ".text", "Heading text") + '<div class="row">' + fSel(base + ".level", "Size", [["2", "Large"], ["3", "Smaller"]]).replace("<select", '<select data-type="int"') + align + "</div>"; break;
-    case "text": body = fRte(base + ".html", "Text") + align; break;
+    case "text": body = fRte(base + ".html", "Text") + '<div class="row">' + align + fCheck(base + ".narrow", "Narrow for easy reading (good for long stories)").replace('class="check"', 'class="check" style="align-self:end"') + "</div>"; break;
     case "image": body = fImg(base + ".src", "Photo") + fText(base + ".alt", "Describe the photo (for screen readers)") + fText(base + ".caption", "Caption (optional)") + fSel(base + ".width", "Size", [["full", "Full width"], ["medium", "Medium"]]); break;
     case "list": body = '<p class="status">One bullet per line.</p><textarea rows="5" data-bind="' + base + '.items" data-type="lines">' + h((b.items || []).join("\n")) + "</textarea>"; break;
     case "button": body = fText(base + ".label", "Button words") + fText(base + ".url", "Where it goes", { list: "pagelist", help: "Pick one of your pages, or paste a full address like https://… , tel:+16083434713 or mailto:you@example.com" }) + '<div class="row">' + fSel(base + ".style", "Look", [["solid", "Filled"], ["outline", "Outline"]]) + align + "</div>"; break;

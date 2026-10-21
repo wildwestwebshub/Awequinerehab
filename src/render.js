@@ -50,7 +50,7 @@ function renderBlock(b) {
       return `<h${lvl} class="blk-heading${alignClass(b.align)}">${esc(b.text)}</h${lvl}>`;
     }
     case "text":
-      return `<div class="blk-text${alignClass(b.align)}">${sanitizeHtml(b.html)}</div>`;
+      return `<div class="blk-text${alignClass(b.align)}${b.narrow ? " narrow" : ""}">${sanitizeHtml(b.html)}</div>`;
     case "image": {
       const i = img(b.src, b.alt);
       if (!i) return "";
