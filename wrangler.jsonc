@@ -9,6 +9,6 @@
     "html_handling": "auto-trailing-slash"
   },
   "kv_namespaces": [
-    { "binding": "CONTENT", "id": "a2d18273b8794628a102990f1ee4fa62" }
+    { "binding": "CONTENT" }
   ]
 }

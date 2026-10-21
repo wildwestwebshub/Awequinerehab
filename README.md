@@ -9,7 +9,7 @@ The client edits everything at **/admin/** with an email + password — no GitHu
    (except `.dev.vars` and `node_modules`) into the repo folder → commit to **main** → push.
 2. **Cloudflare** → Workers & Pages → Create → **Import a repository** → pick `awequinerehab`.
    Keep the Worker name `awequinerehab` (it must match `wrangler.jsonc`). No other settings needed.
-   The KV storage space `awequinerehab-content` already exists in your account and is wired up in `wrangler.jsonc`.
+   The first deploy automatically creates the KV storage space (binding `CONTENT`) in your Cloudflare account.
 3. Worker → **Settings → Variables and Secrets → Add** (type **Secret**):
    - `ADMIN_EMAIL` = your email
    - `ADMIN_PASSWORD` = a long password (this is YOUR owner login; the client gets their own)
