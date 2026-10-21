@@ -168,6 +168,9 @@ export default {
     const url = new URL(req.url);
     let path = url.pathname;
 
+    // www.example.com -> example.com (keeps the page and any query string)
+    if (url.hostname.startsWith("www.")) return Response.redirect(`https://${url.hostname.slice(4)}${url.pathname}${url.search}`, 301);
+
     if (path.startsWith("/api/")) return api(req, env, url);
 
     if (path === "/admin") return Response.redirect(url.origin + "/admin/", 301);
